@@ -1,5 +1,4 @@
 import sys,os,json
-import sys,os,json
 from PyQt6.QtWidgets import QApplication,QWidget,QLabel,QLineEdit,QPushButton,QMessageBox
 from PyQt6.QtGui import QFont, QPixmap
 from Registro import RegistroDeUsuario
