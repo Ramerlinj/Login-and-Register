@@ -103,7 +103,6 @@ class RegistroDeUsuario(QDialog):
         Password2 = self.password2_input.text()
         
         if User == "" or Password1 == "" or Password2 == "":
-        if User == "" or Password1 == "" or Password2 == "":
             QMessageBox.warning(self,"Error","Los campos no pueden estar vacios",QMessageBox.StandardButton.Close,QMessageBox.StandardButton.Close)
         elif not User.isalnum():
             QMessageBox.warning(self,"Error","El nombre no puede contener ningun caracter especial",QMessageBox.StandardButton.Close,QMessageBox.StandardButton.Close)
