@@ -1,8 +1,10 @@
-import sys
+import sys,os,json
 from PyQt6.QtWidgets import QApplication,QWidget,QLabel,QLineEdit,QPushButton,QMessageBox,QCheckBox
 from PyQt6.QtGui import QFont, QPixmap
 from Registro import RegistroDeUsuario
 
+
+Archivo_usuarios = 'Usuarios.json'
 
 class Login(QWidget):
     
@@ -113,7 +115,19 @@ class Login(QWidget):
              #)
     
     def iniciar_mainview(self):
-        pass
+        user = self.user_input.text()
+        contrasena = self.password_input.text()
+        if os.path.exists(Archivo_usuarios):
+            with open(Archivo_usuarios, 'r') as archivo:
+                usuarios = json.load(archivo)
+                
+            if user in usuarios and usuarios[user] == contrasena:
+                QMessageBox.information(self,"Compleado", "Se inicio sesion correctamente",QMessageBox.StandardButton.Ok,QMessageBox.StandardButton.Ok)
+            else:
+                QMessageBox.warning(self,"Error", "El usuario o contraseña son incorrectas",QMessageBox.StandardButton.Close,QMessageBox.StandardButton.Close)
+
+                
+
     
     def registrar_usuario(self):
         self.new_user_form = RegistroDeUsuario()
