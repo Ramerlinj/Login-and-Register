@@ -1,5 +1,9 @@
 from PyQt6.QtWidgets import (QDialog,QLabel,QPushButton,QLineEdit,QMessageBox)
 from PyQt6.QtGui import QFont
+import os 
+import json
+
+Archivo_usuarios = 'Usuarios.json'
 
 class RegistroDeUsuario(QDialog):
     
@@ -89,19 +93,31 @@ class RegistroDeUsuario(QDialog):
         
         
     def Registrarse(self):
-        Usuario = self.usuario_input.text()
+        User = self.usuario_input.text()
         Password1 = self.password1_input.text()
         Password2 = self.password2_input.text()
         
-        if Usuario == "" or Password1 == "" or Password2 == "":
+        if User == "" or Password1 == "" or Password2 == "":
             QMessageBox.warning(self,"Error","Los campos no pueden estar vacios",QMessageBox.StandardButton.Close,QMessageBox.StandardButton.Close)
-        elif not Usuario.isalnum():
+        elif not User.isalnum():
             QMessageBox.warning(self,"Error","El nombre no puede contener ningun caracter especial",QMessageBox.StandardButton.Close,QMessageBox.StandardButton.Close)
-        elif Password1 == Password2:
-            QMessageBox.information(self,"Completado","Se registro correctamente!",QMessageBox.StandardButton.Ok,QMessageBox.StandardButton.Ok)
-            self.close()
         elif Password1 != Password2:
             QMessageBox.warning(self,"Error","Las contraseñas no coinciden",QMessageBox.StandardButton.Close,QMessageBox.StandardButton.Close)
+        elif Password1 == Password2:
+            if os.path.exists(Archivo_usuarios):
+                with open(Archivo_usuarios,'r') as archivos:
+                    Usuario = json.load(archivos)
+            else:
+                Usuario = {}
+            if User in Usuario:
+                QMessageBox.information(self,"Completado","El usuario ya esta en uso",QMessageBox.StandardButton.Ok,QMessageBox.StandardButton.Ok)
+            else:
+                Usuario[User] = Password1
+                with open(Archivo_usuarios, 'w') as archivo:
+                    json.dump(Usuario, archivo, indent=4)
+                QMessageBox.information(self,"Completado","Se registro correctamente!",QMessageBox.StandardButton.Ok,QMessageBox.StandardButton.Ok)
+                self.close()
+       
                 
 
                     
