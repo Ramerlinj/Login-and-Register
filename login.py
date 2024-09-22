@@ -1,6 +1,6 @@
 import sys,os,json
 import sys,os,json
-from PyQt6.QtWidgets import QApplication,QWidget,QLabel,QLineEdit,QPushButton,QMessageBox,QCheckBox
+from PyQt6.QtWidgets import QApplication,QWidget,QLabel,QLineEdit,QPushButton,QMessageBox
 from PyQt6.QtGui import QFont, QPixmap
 from Registro import RegistroDeUsuario
 
@@ -48,12 +48,6 @@ class Login(QWidget):
         self.password_input.setPlaceholderText("Ingrese su contraseña")
         self.password_input.setFont(QFont("Comic Sans MS",11))
         
-        #self.check_vista_password = QCheckBox(self)
-        #self.check_vista_password.setText("Ver Contraseña")
-        #self.check_vista_password.move(95,155)
-       # self.check_vista_password.toggled.connect(self.mostrar_contraseña_check)
-        
-         
         login_button = QPushButton(self)
         login_button.setText("Login")
         login_button.resize(100,40)
@@ -104,17 +98,6 @@ class Login(QWidget):
                 color: #979696;   
             }
         """)
-    
-    
-    #def mostrar_contraseña_check(self,cliked):
-        #if cliked:
-            #self.password_input.setEchoMode(
-                #QLineEdit.EchoMode.Normal
-            #)
-        #else:
-             #self.password_input.setEchoMode(
-                #QLineEdit.EchoMode.Password
-             #)
     
     def iniciar_mainview(self):
         user = self.user_input.text()
